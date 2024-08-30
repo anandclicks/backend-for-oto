@@ -21,17 +21,14 @@ transporter.verify((error,response)=> {
     console.log(error)
   }
   else {
-    console.log("Transporter is ready to send mails")
-    app.listen(3001,()=> {
-      console.log("server is runnig at 3001")
-    })
+    // console.log("Transporter is ready to send mails")
+    app.listen(3001)
   }
 })
 
 
 app.post('/getAcall',async(req,res)=> {
   const {name,mobileNumber,email,roomType} = req.body
-  console.log(req.body)
   let mailOption = {
     from : process.env.EMAIL_ID,
     to : process.env.TO_EMAIL,
@@ -56,7 +53,6 @@ app.post('/getAcall',async(req,res)=> {
 
 app.post('/intrestedInproperty',async(req,res)=> {
   const { name, number, email, location, specificProperty} = req.body.formData
-  console.log(req.body)
   let mailOption = {
     from : process.env.EMAIL_ID,
     to : process.env.TO_EMAIL,
