@@ -51,3 +51,31 @@ app.post('/getAcall',async(req,res)=> {
   }
 })
 
+
+
+
+app.post('/intrestedInproperty',async(req,res)=> {
+  const { name, number, email, location, specificProperty} = req.body.formData
+  console.log(req.body)
+  let mailOption = {
+    from : process.env.EMAIL_ID,
+    to : process.env.TO_EMAIL,
+    subject  : "New query",
+    text : `
+            name: ${name},
+            number: ${number},
+            email: ${email},  
+            location: ${location},
+            specificProperty: ${specificProperty},
+    `
+  }
+  try {
+    let response = await transporter.sendMail(mailOption)
+    res.status(200).send({message : "Email has sended succesfully", info : response})
+  } catch (error) {
+    res.send({message : "Something went wrong", error : error})
+  }
+})
+
+
+
