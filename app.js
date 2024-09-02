@@ -75,3 +75,24 @@ app.post('/intrestedInproperty',async(req,res)=> {
 
 
 
+
+app.post('/getSupport',async(req,res)=> {
+  const { name, number} = req.body
+
+  let mailOption = {
+    from : process.env.EMAIL_ID,
+    to : process.env.TO_EMAIL,
+    subject  : "New query",
+    text : `
+            name: ${name},
+            number: ${number},
+    `
+  }
+  try {
+    let response = await transporter.sendMail(mailOption)
+    res.status(200).send({message : "Email has sended succesfully", info : response})
+  } catch (error) {
+    res.send({message : "Something went wrong", error : error})
+  }
+})
+
